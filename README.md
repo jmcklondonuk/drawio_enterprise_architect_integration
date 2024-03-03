@@ -41,4 +41,4 @@ I will add support for 3 more diagram types:
 * class diagrams
 * component diagrams
 
-Let me know. Like the post at https://github.com/jgraph/drawio/issues/1663 if you want this function for loading *.xmi from EA integrated into Draw.io. It can be a draw.io plugin that adds a new menu item, or it can be added in the core. I'd like to see your suggestions.
+Let me know. Like the post at https://github.com/jgraph/drawio/issues/1663 if you want this function for loading *.xmi from EA integrated into Draw.io. It can be added in the core. I'd like to see your suggestions.
