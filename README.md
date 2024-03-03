@@ -25,7 +25,7 @@ https://pastebin.com/raw/udPsrsFC https://i.imgur.com/rOkUHyL.png
 
 PoC output (a data flow diagram imported in draw.io)
 ----------------------------------------------------
-A screenshot of the resulting mxgraph loaded with Draw.io: https://i.imgur.com/QJMYrjF.png
+A screenshot of the resulting mxgraph loaded with Draw.io: https://i.imgur.com/c5WOd5v.png
 A screenshot of the program output: https://i.imgur.com/EePYoGm.png
 
 
