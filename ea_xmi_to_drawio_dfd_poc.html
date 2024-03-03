@@ -27,8 +27,16 @@
                   var supplier = umlElement.getAttribute('supplier');
                   var client = umlElement.getAttribute('client');
                   result.push({ id: umlElementId, name: umlElementName, type: type, supplier: supplier, client: client });
-              } else
-                  result.push({ id: umlElementId, name: umlElementName, type: type });
+              } else {
+                  // Check if the stereotype element exists
+                  var stereotypeElement = umlElement.getElementsByTagName('UML:Stereotype');
+                  var stereotypeName = null;
+                  if (stereotypeElement) {
+                      stereotypeName = stereotypeElement[0].getAttribute('name');
+                      result.push({ id: umlElementId, name: umlElementName, type: type, stereotype: stereotypeName });
+                  } else
+                     result.push({ id: umlElementId, name: umlElementName, type: type });
+              }
           }
 
           return result;
@@ -109,7 +117,11 @@
 
               if (item.type == 'Class') {
                   cell = graph.insertVertex(parent, item.id, item.name, item.geometry.x, item.geometry.y, item.geometry.width, item.geometry.height);
-                  cell.setStyle('shape=mxgraph.dfd.externalEntity;fontSize=' + fontSize);
+                  if (item.stereotype === 'DFD_DataStore') {
+                     cell.setStyle('html=1;dashed=0;whiteSpace=wrap;shape=partialRectangle;right=0;left=0;fontSize=' + fontSize);
+                  } else {
+                     cell.setStyle('shape=mxgraph.dfd.externalEntity;fontSize=' + fontSize);
+                  }
               } else if (item.type == 'ActionState') {
                   cell = graph.insertVertex(parent, item.id, item.name, item.geometry.x, item.geometry.y, item.geometry.width, item.geometry.height);
                   cell.setStyle('shape=ellipse;fontSize=' + fontSize);
