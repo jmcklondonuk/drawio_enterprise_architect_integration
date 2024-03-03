@@ -28,15 +28,12 @@ PoC output (a data flow diagram imported in draw.io)
 A screenshot of the resulting mxgraph loaded with Draw.io: https://i.imgur.com/QJMYrjF.png
 A screenshot of the program output: https://i.imgur.com/bbHkzkH.png
 
-Known issues
-------------
-The geometry of relationships is not yet calculated 100% correctly. Do you know what the geometry values in mxgraph cell.setStyle in function createMxGraphCells should be to fix this? They are slightly off when type=='dependency'. Other than this glitch, I think it is a good PoC.
 
 Roadmap
 -------
 This program is good enough for my needs. Feel free to reuse it, fork it, modify it, etc. but please mention when your work will be inspired by Jack McKenzie's importer.
 
-When somebody fixes the geometry (corrective maintenance), I will add support for 3 more diagram types:
+I will add support for 3 more diagram types:
 
 * use case diagrams
 * class diagrams
