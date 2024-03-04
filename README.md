@@ -2,7 +2,7 @@
 This project imports XMI files from Sparx System Enterprise Architect into Draw.io
 
 * it loads an XMI exported from Sparx Systems Enterprise Architect
-* it parses UML elements that are present in a data flow diagram, their geometry, source and target vertices for relationships
+* it parses UML elements that are present in the diagram, their geometry, source and target vertices for relationships
 * it returns a structure with UML elements that can be easily represented as JSON
 * it traverses the data structure with UML elements and dynamically creates mxgraph vertices and edges with the default style
 * there is an HTML that displays the mxgraph (this HTML can be removed if it is not needed)
