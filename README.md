@@ -33,8 +33,5 @@ A screenshot of the program output: https://i.imgur.com/z3dKhaq.png
 
 Future work
 -----------
-I plan to integrate this in draw.io core or create a plugin.
+I plan to integrate this in the draw.io core or create a plugin.
 This program is good enough for my needs. Feel free to reuse it, fork it, modify it, etc. but please mention when your work will be inspired by Jack McKenzie's importer.
-
-
-Let me know. Like the post at https://github.com/jgraph/drawio/issues/1663 if you want this function for loading *.xmi from EA integrated into Draw.io. It can be added in the core. I'd like to see your suggestions.
