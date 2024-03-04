@@ -10,7 +10,7 @@ This project imports XMI files from Sparx System Enterprise Architect into Draw.
 
 Scope
 -----
-This project is limited to a Data Flow Diagram (DFD), Use Case Diagram, Component Diagram and Class Diagram for now.
+This project is limited to Data Flow Diagram (DFD), Use Case Diagram, Component Diagram and Class Diagram for now.
 It parses a diagram exported from EA as XMI and transforms it into an mxgraph XML for draw.io
 
 The task requires an algorithm to:
