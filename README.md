@@ -1,4 +1,4 @@
-# PoC Draw.io Enterprise Architect Integration https://github.com/jgraph/drawio/issues/1663
+# Draw.io Enterprise Architect Integration https://github.com/jgraph/drawio/issues/1663
 This project imports XMI files from Sparx System Enterprise Architect into Draw.io
 
 * it loads an XMI exported from Sparx Systems Enterprise Architect
@@ -10,7 +10,7 @@ This project imports XMI files from Sparx System Enterprise Architect into Draw.
 
 Scope
 -----
-This PoC is limited to a Data Flow Diagram (DFD), Use Case Diagram, Component Diagram and Class Diagram for now.
+This project is limited to a Data Flow Diagram (DFD), Use Case Diagram, Component Diagram and Class Diagram for now.
 It parses a diagram exported from EA as XMI and transforms it into an mxgraph XML for draw.io
 
 The task requires an algorithm to:
@@ -19,12 +19,12 @@ The task requires an algorithm to:
 * save the mxgraph as XML that can be opened with draw.io
 
 
-PoC input (a data flow diagram exported from EA as XMI)
--------------------------------------------------------
+Sample Input (a data flow diagram exported from EA as XMI)
+----------------------------------------------------------
 https://pastebin.com/raw/udPsrsFC https://i.imgur.com/rOkUHyL.png
 
-PoC output (a data flow diagram imported in draw.io)
-----------------------------------------------------
+Sample Output (a data flow diagram imported in draw.io)
+-------------------------------------------------------
 A screenshot of the resulting mxgraph loaded with Draw.io: https://i.imgur.com/ihICND8.png
 
 A screenshot of the program output: https://i.imgur.com/z3dKhaq.png
