@@ -33,6 +33,7 @@ A screenshot of the program output: https://i.imgur.com/z3dKhaq.png
 
 Future work
 -----------
+I plan to integrate this in draw.io core or create a plugin.
 This program is good enough for my needs. Feel free to reuse it, fork it, modify it, etc. but please mention when your work will be inspired by Jack McKenzie's importer.
 
 
