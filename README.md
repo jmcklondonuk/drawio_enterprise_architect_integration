@@ -27,7 +27,7 @@ Scope
 
 Sample Input (a data flow diagram exported from EA as XMI)
 ----------------------------------------------------------
-https://pastebin.com/fcyL8NFK https://i.imgur.com/mx9qkhn.png
+https://i.imgur.com/mx9qkhn.png
 
 Sample Output (a data flow diagram imported in draw.io)
 -------------------------------------------------------
