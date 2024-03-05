@@ -155,10 +155,10 @@ Draw.loadPlugin(function(ui) {
             umlElements = umlElements.concat(parseUmlElement(xmlDoc, types[i]));
         }
 
-        // Create a hash table for quick lookup
-        var umlHashTable = {};
+        // Create a map for O(1) lookup
+        var indexElementsById = {};
         umlElements.forEach(function(element) {
-            umlHashTable[element.id] = element;
+            indexElementsById[element.id] = element;
         });
 
         // Find all UML diagram elements in the XML
@@ -197,7 +197,7 @@ Draw.loadPlugin(function(ui) {
             var height = bottom - top;
 
             // Update the element with geometry information
-            var foundElement = umlHashTable[id];
+            var foundElement = indexElementsById[id];
             if (foundElement) {
                 if (foundElement.type == 'Dependency') {
                     foundElement.geometry = {
@@ -222,7 +222,6 @@ Draw.loadPlugin(function(ui) {
 
     // Function to create mxGraph cells
     function createMxGraphCells(umlElements, graph, parent) {
-        var cells = [];
         var fontSize = 10;
         for (var i = 0; i < umlElements.length; i++) {
             var item = umlElements[i];
@@ -334,10 +333,6 @@ Draw.loadPlugin(function(ui) {
                 cell = graph.insertEdge(parent, item.id, item.name, sourceVertex, targetVertex);
                 cell.setStyle('endArrow=none');
             }
-
-            cells.push(cell);
         }
-
-        return cells;
     }
 });
