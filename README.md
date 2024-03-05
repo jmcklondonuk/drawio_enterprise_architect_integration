@@ -10,7 +10,7 @@ This project imports XMI files from Sparx System Enterprise Architect into Draw.
 Installation
 ------------
 - Enable external plug-ins in your draw.io desktop: https://github.com/jgraph/drawio-desktop/issues/1049
-- Navigate to the Extras menu -> Plug-ins -> Add -> Select File -> OK -> select the file "draw_io_ea_plugin.js".
+- Navigate to the Extras menu -> Plug-ins -> Add -> Select File -> OK -> select the file you downloaded, i.e. draw_io_ea_plugin.js
 - Restart draw.io desktop.
 - Navigate to the Extras menu -> Import XML from Sparx Systems EA...
 ![Draw.io plug-in](https://github.com/jmcklondonuk/drawio_enterprise_architect_integration/blob/main/drawio_plugin.png)
