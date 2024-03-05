@@ -27,8 +27,21 @@ Draw.loadPlugin(function(ui) {
                 // Read the file
                 var reader = new FileReader();
                 reader.onload = function(event) {
-                    var xmiData = event.target.result;
-                    importXmi(xmiData);
+                    var parsedUmlElements = parseUmlElements(event.target.result);
+
+                    var graph = ui.editor ? ui.editor.graph : ui.graph;
+                    var parent = graph.getDefaultParent();
+
+                    // Adds cells to the model in a single step
+                    var model = graph.getModel();
+                    model.beginUpdate();
+
+                    try {
+                        createMxGraphCells(parsedUmlElements, graph, parent);
+                    } finally {
+                        // Updates the display
+                        model.endUpdate();
+                    }
                 };
                 reader.readAsText(file);
             }
@@ -137,27 +150,16 @@ Draw.loadPlugin(function(ui) {
         var xmlDoc = parser.parseFromString(xmlString, 'text/xml');
 
         var umlElements = [];
+        var types = ['Class', 'ActionState', 'Dependency', 'Actor', 'UseCase', 'Component', 'Association'];
+        for (var i in types) {
+            umlElements = umlElements.concat(parseUmlElement(xmlDoc, types[i]));
+        }
 
-        // Find all UML classes in the XML
-        umlElements = umlElements.concat(parseUmlElement(xmlDoc, 'Class'));
-
-        // Find all UML action states in the XML
-        umlElements = umlElements.concat(parseUmlElement(xmlDoc, 'ActionState'));
-
-        // Find all UML dependencies in the XML
-        umlElements = umlElements.concat(parseUmlElement(xmlDoc, 'Dependency'));
-
-        // Find all UML actors in the XML
-        umlElements = umlElements.concat(parseUmlElement(xmlDoc, 'Actor'));
-
-        // Find all UML use cases in the XML
-        umlElements = umlElements.concat(parseUmlElement(xmlDoc, 'UseCase'));
-
-        // Find all UML components in the XML
-        umlElements = umlElements.concat(parseUmlElement(xmlDoc, 'Component'));
-
-        // Find all UML associations in the XML
-        umlElements = umlElements.concat(parseUmlElement(xmlDoc, 'Association'));
+        // Create a hash table for quick lookup
+        var umlHashTable = {};
+        umlElements.forEach(function(element) {
+            umlHashTable[element.id] = element;
+        });
 
         // Find all UML diagram elements in the XML
         var elements = xmlDoc.getElementsByTagName('UML:DiagramElement');
@@ -194,23 +196,23 @@ Draw.loadPlugin(function(ui) {
             var width = right - left;
             var height = bottom - top;
 
-            // TODO: This could use a hash table instead to have an O(1) lookup instead of O(n)
-            for (var j = 0; j < umlElements.length; j++) {
-                if (umlElements[j].id == id) {
-                    if (umlElements[j].type == 'Dependency') {
-                        umlElements[j].geometry = {
-                            sx: sx,
-                            sy: sy,
-                            ex: ex,
-                            ey: ey
-                        };
-                    } else
-                        umlElements[j].geometry = {
-                            x: left,
-                            y: top,
-                            width: width,
-                            height: height
-                        };
+            // Update the element with geometry information
+            var foundElement = umlHashTable[id];
+            if (foundElement) {
+                if (foundElement.type == 'Dependency') {
+                    foundElement.geometry = {
+                        sx: sx,
+                        sy: sy,
+                        ex: ex,
+                        ey: ey
+                    };
+                } else {
+                    foundElement.geometry = {
+                        x: left,
+                        y: top,
+                        width: width,
+                        height: height
+                    };
                 }
             }
         }
@@ -219,11 +221,11 @@ Draw.loadPlugin(function(ui) {
     }
 
     // Function to create mxGraph cells
-    function createMxGraphCells(data, graph, parent) {
+    function createMxGraphCells(umlElements, graph, parent) {
         var cells = [];
         var fontSize = 10;
-        for (var i = 0; i < data.length; i++) {
-            var item = data[i];
+        for (var i = 0; i < umlElements.length; i++) {
+            var item = umlElements[i];
             var cell;
 
             if (item.type == 'Class') {
@@ -337,24 +339,5 @@ Draw.loadPlugin(function(ui) {
         }
 
         return cells;
-    }
-
-    // Function to import XMI file
-    function importXmi(xmi) {
-        var parsedUmlElements = parseUmlElements(xmi);
-
-        var graph = ui.editor ? ui.editor.graph : ui.graph;
-        var parent = graph.getDefaultParent();
-
-        // Adds cells to the model in a single step
-        var model = graph.getModel();
-        model.beginUpdate();
-
-        try {
-            createMxGraphCells(parsedUmlElements, graph, parent);
-        } finally {
-            // Updates the display
-            model.endUpdate();
-        }
     }
 });
