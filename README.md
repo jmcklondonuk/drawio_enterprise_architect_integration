@@ -1,7 +1,7 @@
 # Draw.io Enterprise Architect Integration https://github.com/jgraph/drawio/issues/1663
 This project imports XMI files from Sparx System Enterprise Architect into Draw.io
 
-* It can added in Draw.io as a plug-in
+* It can be added in Draw.io as a plug-in.
 * it loads an XMI exported from Sparx Systems Enterprise Architect
 * it parses UML elements that are present in the diagram, their geometry, source and target vertices for relationships
 * it returns a structure with UML elements that can be easily represented as JSON
@@ -23,6 +23,13 @@ Sample Output (a data flow diagram imported in draw.io)
 -------------------------------------------------------
 A screenshot from Draw.io: https://i.imgur.com/ihICND8.png
 
+Installation
+------------
+- Enable external plug-ins in your draw.io desktop: https://github.com/jgraph/drawio-desktop/issues/1049
+- Navigate to the Extras menu -> Plug-ins -> Add -> Select File -> OK -> select the file "draw_io_ea_plugin.js".
+- Restart draw.io desktop.
+- Navigate to the Extras menu -> Import XML from Sparx Systems EA...
+![Draw.io plug-in](https://github.com/jmcklondonuk/drawio_enterprise_architect_integration/edit/main/drawio_plugin.png)
 
 
 Future work
