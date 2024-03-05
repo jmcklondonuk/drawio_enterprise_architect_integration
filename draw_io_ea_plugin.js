@@ -15,16 +15,15 @@ Draw.loadPlugin(function(ui) {
     }
 
     ui.actions.addAction('importFromEA', function() {
-        // Create a file input element
+        // Creates a file input element
         var fileInput = document.createElement('input');
         fileInput.type = 'file';
         fileInput.accept = '.xml';
 
-        // Listen for file selection
+        // Listens for file selection
         fileInput.addEventListener('change', function(event) {
             var file = event.target.files[0];
             if (file) {
-                // Read the file
                 var reader = new FileReader();
                 reader.onload = function(event) {
                     var parsedUmlElements = parseUmlElements(event.target.result);
@@ -47,11 +46,11 @@ Draw.loadPlugin(function(ui) {
             }
         });
 
-        // Trigger click event to open file dialog
+        // Triggers a click event to open the file dialog
         fileInput.click();
     });
 
-    // Function to parse one UML element
+    // Parses one UML element
     function parseUmlElement(xmlDoc, type) {
         var result = [];
 
@@ -119,7 +118,7 @@ Draw.loadPlugin(function(ui) {
                     }
                 }
 
-                // Check if the stereotype element exists
+                // Checks if the stereotype element exists
                 var stereotypeElement = umlElement.getElementsByTagName('UML:Stereotype');
                 var stereotypeName = null;
                 if (stereotypeElement !== null && stereotypeElement.length > 0) {
@@ -144,7 +143,7 @@ Draw.loadPlugin(function(ui) {
         return result;
     }
 
-    // Function to parse UML elements and their geometry
+    // Parses UML elements and their geometry
     function parseUmlElements(xmlString) {
         var parser = new DOMParser();
         var xmlDoc = parser.parseFromString(xmlString, 'text/xml');
@@ -155,20 +154,20 @@ Draw.loadPlugin(function(ui) {
             umlElements = umlElements.concat(parseUmlElement(xmlDoc, types[i]));
         }
 
-        // Create a map for O(1) lookup
+        // Creates a map for O(1) lookup
         var indexElementsById = {};
         umlElements.forEach(function(element) {
             indexElementsById[element.id] = element;
         });
 
-        // Find all UML diagram elements in the XML
+        // Finds all UML diagram elements in the XML
         var elements = xmlDoc.getElementsByTagName('UML:DiagramElement');
         for (var i = 0; i < elements.length; i++) {
             var element = elements[i];
             var id = element.getAttribute('subject');
             var geometry = element.getAttribute('geometry');
 
-            // Parse geometry information
+            // Parses geometry information
             var geometryValues = geometry.split(';');
             var left, top, right, bottom, sx, sy, ex, ey;
             for (var j = 0; j < geometryValues.length; j++) {
@@ -192,11 +191,11 @@ Draw.loadPlugin(function(ui) {
                 }
             }
 
-            // Calculate width and height
+            // Calculates the width and height of this UML element
             var width = right - left;
             var height = bottom - top;
 
-            // Update the element with geometry information
+            // Updates the element with geometry information
             var foundElement = indexElementsById[id];
             if (foundElement) {
                 if (foundElement.type == 'Dependency') {
@@ -220,7 +219,7 @@ Draw.loadPlugin(function(ui) {
         return umlElements;
     }
 
-    // Function to create mxGraph cells
+    // Interprets a tree of umlElements and adds corresponding vertices and edges to mxGraph
     function createMxGraphCells(umlElements, graph, parent) {
         var fontSize = 10;
         for (var i = 0; i < umlElements.length; i++) {
@@ -236,9 +235,9 @@ Draw.loadPlugin(function(ui) {
                 }
 
                 if (item.attributes.length > 0) {
-                    // Create class vertex
+                    // Creates a vertex that represents a UML class
                     cell.setStyle('swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;');
-                    // Add attributes
+                    // Adds UML class attributes
                     var y = 20;
                     for (var j = 0; j < item.attributes.length; j++) {
                         var attribute = item.attributes[j];
@@ -247,6 +246,8 @@ Draw.loadPlugin(function(ui) {
                         graph.addCell(attributeLabel, cell);
                         y += 20;
                     }
+
+                    // UML class methods are not yet implemented
                 }
             } else if (item.type == 'ActionState') {
                 cell = graph.insertVertex(parent, item.id, item.name, item.geometry.x, item.geometry.y, item.geometry.width, item.geometry.height);
@@ -254,7 +255,7 @@ Draw.loadPlugin(function(ui) {
             } else if (item.type == 'Component') {
                 cell = graph.insertVertex(parent, item.id, item.name, item.geometry.x, item.geometry.y, item.geometry.width, item.geometry.height);
                 cell.setStyle('shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fontSize=' + fontSize);
-            } else if (item.type == 'Dependency') {
+            } else if (item.type == 'Dependency') { // directional relationship in a data flow diagram (DFD)
                 var sourceVertex = graph.getModel().getCell(item.client);
                 var targetVertex = graph.getModel().getCell(item.supplier);
                 cell = graph.insertEdge(parent, item.id, item.name, sourceVertex, targetVertex);
@@ -319,7 +320,7 @@ Draw.loadPlugin(function(ui) {
                     }
                 }
 
-                // Set edge style for curved edges with control points
+                // Sets edge style to curved edges with control points in this data flow diagram
                 cell.setStyle('endArrow=classic;html=1;curved=1;edgeStyle=entityRelationEdgeStyle;elbow=vertical;fontSize=' + fontSize + ';exitX=' + exitX + ';exitY=' + exitY + ';entryX=' + entryX + ';entryY=' + entryY + ';entryDx=' + entryDx + ';entryDy=' + entryDy + ';jettySize=auto;orthogonalLoop=1;jumpStyle=none;rounded=0;orthogonal=1;strokeColor=#000000;fillColor=none;');
             } else if (item.type == 'Actor') {
                 cell = graph.insertVertex(parent, item.id, item.name, item.geometry.x, item.geometry.y, item.geometry.width, item.geometry.height);
