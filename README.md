@@ -21,9 +21,7 @@ https://pastebin.com/fcyL8NFK https://i.imgur.com/mx9qkhn.png
 
 Sample Output (a data flow diagram imported in draw.io)
 -------------------------------------------------------
-A screenshot of the resulting mxgraph loaded with Draw.io: https://i.imgur.com/ihICND8.png
-
-A screenshot of the program output: https://i.imgur.com/z3dKhaq.png
+A screenshot from Draw.io: https://i.imgur.com/ihICND8.png
 
 
 
