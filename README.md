@@ -27,4 +27,4 @@ A screenshot from Draw.io: https://i.imgur.com/ihICND8.png
 
 Future work
 -----------
-This program is good enough for my needs. Feel free to reuse it, fork it, modify it, etc. but please mention when your work will be based on Jack McKenzie's importer.
+This plug-in is good enough for my needs. Feel free to reuse it, fork it, modify it, etc. but please mention when your work will be based on Jack McKenzie's importer.
