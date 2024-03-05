@@ -24,7 +24,7 @@ Scope
 * Component Diagram
 * Class Diagram
 
-Export each individual diagram from EA as XMI 1.3:
+Export each individual diagram from EA as XMI 1.1:
 ![XMI 1.3](https://github.com/jmcklondonuk/drawio_enterprise_architect_integration/blob/main/xmi_1_3.png)
 
 Sample Input (a data flow diagram exported from EA as XMI)
